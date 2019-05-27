@@ -1,7 +1,6 @@
 package de.muSchus.gso.web.util.model.labeledItem;
 
-import de.muSchus.gso.web.util.page.BasePage;
-import lombok.*;
+import lombok.Data;
 import org.apache.wicket.model.IModel;
 
 import java.util.Arrays;
@@ -23,21 +22,6 @@ public class ListItem implements ILabeledItem, Iterable<ILabeledItem> {
      */
     public static ListItem of(IModel<String> label, ILabeledItem... items) {
         return new ListItem(label, Arrays.asList(items));
-    }
-
-    /**
-     * Generiert ListItem bestehend aus {@link PageLinkItem} aus Array an {@link BasePage}'s
-     */
-    @SafeVarargs
-    public static ListItem of(IModel<String> label, Class<? extends BasePage>... pages) {
-        return of(label, Arrays.asList(pages));
-    }
-
-    /**
-     * Generiert ListItem bestehend aus {@link PageLinkItem} aus Collection an {@link BasePage}'s
-     */
-    public static ListItem of(IModel<String> label, Collection<Class<? extends BasePage>> pages) {
-        return new ListItem(label, PageLinkItem.of(pages));
     }
 
     private final IModel<String> label;

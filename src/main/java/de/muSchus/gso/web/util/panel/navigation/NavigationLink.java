@@ -19,7 +19,7 @@ public class NavigationLink extends Panel<ILinkItem> {
     }
 
     private void initComponets() {
-        Link link = getModelObject().createLink("link");
+        Link link = getModelObject().createComponent("link");
         link.add(new Label("linkText", getModelObject().getLabel()));
         add(link);
     }

@@ -41,22 +41,26 @@ public class Navigation extends Panel<Collection<ILabeledItem>> {
     }
 
     private void addItem(ILabeledItem labeledItem) {
-        if (labeledItem instanceof ILinkItem) addItem((ILinkItem) labeledItem);
-        else if (labeledItem instanceof ListItem) addItem((ListItem) labeledItem);
-        else if (labeledItem instanceof PanelItem) addItem((PanelItem) labeledItem);
-        else throw new UnsupportedOperationException("Kann ILabeledItem nicht hinzufügen, da nicht durch Komponente unterstützt!");
+        if (labeledItem instanceof IComponentItem) {
+            if (labeledItem instanceof ILinkItem) {
+                addItem((ILinkItem) labeledItem);
+            } else {
+                addItem((IComponentItem) labeledItem);
+            }
+        } else if (labeledItem instanceof ListItem) {
+            addItem((ListItem) labeledItem);
+        } else throw new UnsupportedOperationException("Kann ILabeledItem nicht hinzufügen, da nicht durch Komponente unterstützt!");
     }
 
-    private void addItem(ILinkItem pageLinkItem) {
-        navigationItems.add(new NavigationLink(navigationItems.newChildId(), Model.of(pageLinkItem)));
+    private void addItem(ILinkItem componentItem) {
+        navigationItems.add(new NavigationLink(navigationItems.newChildId(), Model.of(componentItem)));
     }
 
     private void addItem(ListItem listItem) {
         navigationItems.add(new Dropdown(navigationItems.newChildId(), Model.of(listItem)));
     }
 
-    @SuppressWarnings("unchecked")
-    private void addItem(PanelItem panelItem) {
+    private void addItem(IComponentItem panelItem) {
         addItem(ListItem.of(panelItem.getLabel(), panelItem));
     }
 }

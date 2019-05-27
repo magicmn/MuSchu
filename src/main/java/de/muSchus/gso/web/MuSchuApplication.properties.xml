@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+    <!-- Wicket Defaults die überschrieben werden -->
+    <entry key="Required">${label} darf nicht leer sein.</entry>
+    <!-- Home -->
     <entry key="Home">Startseite</entry>
+    <!-- LoginPanel -->
+    <entry key="Login">Anmelden</entry>
+    <entry key="Login.username.label">Nutzername</entry>
+    <entry key="Login.username.hint">mmuster</entry>
+    <entry key="Login.username.help">Besteht aus dem ersten Buchstaben des Vornamen und dem Nachnamen.</entry>
+    <entry key="Login.password.label">Passwort</entry>
+    <entry key="Login.password.hint">12345</entry>
+    <entry key="Login.submit">Einloggen</entry>
+    <entry key="Login.failed">Ungültige Kombination aus Nutzername und Passwort.</entry>
+    <entry key="Logout">Abmelden</entry>
+    <!-- Validators -->
+    <!-- LengthValidator -->
+    <entry key="LengthValidator.min">${label} muss aus mindestens ${min} Zeichen bestehen.</entry>
+    <entry key="LengthValidator.max">${label} darf maxmimal ${max} Zeichen lang sein.</entry>
+    <entry key="LengthValidator.Max">${label} muss zwischen ${mmin} und ${max} Zeichen haben.</entry>
 </properties>

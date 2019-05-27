@@ -1,15 +1,16 @@
 package de.muSchus.gso.web.util.page;
 
-import de.muSchus.gso.web.MuSchuSession;
 import de.muSchus.gso.web.page.Home;
-import de.muSchus.gso.web.panel.LoginTest;
+import de.muSchus.gso.web.panel.LoginPanel;
 import de.muSchus.gso.web.util.model.labeledItem.*;
 import de.muSchus.gso.web.util.panel.Panel;
 import de.muSchus.gso.web.util.panel.navigation.Navigation;
+import org.apache.wicket.Session;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
@@ -50,14 +51,19 @@ public abstract class BasePage extends WebPage {
     protected IModel<Collection<ILabeledItem>> createNavigationModel() {
         List<ILabeledItem> itemList = new ArrayList<>();
         itemList.add(PageLinkItem.of(Home.class));
-        itemList.add(new EventLinkItem(Model.of("Logout")) {
-            @Override
-            public void onCLick() {
-                MuSchuSession.get().invalidate();
-            }
-        });
-        itemList.add(ListItem.of(Model.of("LinkListTest"), Home.class, null, Home.class));
-        itemList.add(ListItem.of(Model.of("MischMaschTest"), PageLinkItem.of(Home.class), null, new PanelItem<>(Model.of("Test"), LoginTest.class)));
+        if(Session.get().isTemporary()) {
+            itemList.add(ListItem.of(new ResourceModel("Login"),
+                    new PanelItem<>(null, LoginPanel.class))
+            );
+        } else {
+            itemList.add(new EventLinkItem(new ResourceModel("Logout")) {
+                @Override
+                public void onClick() {
+                    Session.get().invalidate();
+                    setResponsePage(BasePage.this.getClass());
+                }
+            });
+        }
         return Model.of(itemList);
     }
 

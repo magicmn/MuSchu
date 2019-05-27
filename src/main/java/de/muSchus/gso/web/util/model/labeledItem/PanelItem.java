@@ -1,8 +1,6 @@
 package de.muSchus.gso.web.util.model.labeledItem;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
@@ -17,24 +15,24 @@ import java.lang.reflect.InvocationTargetException;
  * @param <T> Panel das verwendet wird.
  */
 @Data
-public class PanelItem<T extends Panel> implements ILabeledItem {
+public class PanelItem<T extends Panel> implements IComponentItem<T> {
 
     private final IModel<String> label;
     /**
      * Klasse des Panels.
      */
     private final Class<T> panelClass;
-    @Setter(value = AccessLevel.PRIVATE) private T panel;
+    private T panel;
 
     /**
      * Erzeugt das Panel mithilfe von Reflection.
      * @param id Id des Panels
      * @return Erzeugtes Panel
      */
-    public T createPanel(String id) {
+    @Override
+    public T createComponent(String id) {
         try {
-            T panel = panelClass.getDeclaredConstructor(String.class).newInstance(id);
-            setPanel(panel);
+            panel = panelClass.getDeclaredConstructor(String.class).newInstance(id);
             return panel;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();

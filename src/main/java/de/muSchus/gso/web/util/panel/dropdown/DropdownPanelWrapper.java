@@ -12,6 +12,6 @@ public class DropdownPanelWrapper extends Panel<PanelItem> {
     }
 
     private void initComponents() {
-        add(getModelObject().createPanel("content"));
+        add(getModelObject().createComponent("content"));
     }
 }

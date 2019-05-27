@@ -1,16 +1,25 @@
 package de.muSchus.gso.web;
 
+import de.muSchus.gso.database.User;
+import de.muSchus.gso.database.UserRepositroy;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
+import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
  * {@link WebSession} die für jeden User erstellt wird, sobald dieser auf eine Seite kommt, welche nicht Stateless ist.
  * Enthält somit alles, was global den User betrifft.
  */
 public class MuSchuSession extends AuthenticatedWebSession {
+
+
+    @SpringBean
+    private UserRepositroy USER_REPOSITORY;
+    private User sessionOwner;
 
     /**
      * @see Session#get()
@@ -28,7 +37,14 @@ public class MuSchuSession extends AuthenticatedWebSession {
      */
     @Override
     protected boolean authenticate(String user, String password) {
-        return false;
+        Injector.get().inject(this);
+        sessionOwner = USER_REPOSITORY.findFirstByUsernameAndPassword(user, password);
+        if (sessionOwner != null) {
+            bind();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -36,6 +52,10 @@ public class MuSchuSession extends AuthenticatedWebSession {
      */
     @Override
     public Roles getRoles() {
-        return null;
+        if (sessionOwner == null) {
+            return new Roles("Unregistered");
+        } else {
+            return new Roles("Admin");
+        }
     }
 }

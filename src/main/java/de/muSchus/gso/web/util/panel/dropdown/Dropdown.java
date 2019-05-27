@@ -37,10 +37,17 @@ public class Dropdown extends Panel<ListItem> {
     }
 
     private void addItem(ILabeledItem labeledItem) {
-        if (labeledItem instanceof ILinkItem) addItem((PageLinkItem) labeledItem);
-        else if (labeledItem instanceof PanelItem) addItem((PanelItem) labeledItem);
-        else if (labeledItem == null) addBorder();
-        else throw new UnsupportedOperationException("Kann ILabeledItem nicht hinzufügen, da nicht durch Komponente unterstützt!" + labeledItem.getClass());
+        if (labeledItem instanceof IComponentItem) {
+            if (labeledItem instanceof ILinkItem) {
+                addItem((ILinkItem) labeledItem);
+            } else if (labeledItem instanceof PanelItem){
+                addItem((PanelItem) labeledItem);
+            }
+        } else if (labeledItem == null) {
+            addBorder();
+        } else {
+            throw new UnsupportedOperationException("Kann ILabeledItem nicht hinzufügen, da nicht durch Komponente unterstützt!" + labeledItem.getClass());
+        }
     }
 
     private void addItem(ILinkItem linkItem) {

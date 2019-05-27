@@ -1,0 +1,13 @@
+:root {
+    --input-padding-x: .75rem;
+    --input-padding-y: .75rem;
+}
+
+#main {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.form-signin {
+    min-width: 250px;
+}
