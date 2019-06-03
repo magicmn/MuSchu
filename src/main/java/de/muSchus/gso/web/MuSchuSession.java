@@ -1,7 +1,8 @@
 package de.muSchus.gso.web;
 
-import de.muSchus.gso.database.User;
-import de.muSchus.gso.database.UserRepositroy;
+import de.muSchus.gso.database.entity.Account;
+import de.muSchus.gso.database.repository.AccountRepository;
+import de.muSchus.gso.database.util.Rolle;
 import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
@@ -11,15 +12,15 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 /**
- * {@link WebSession} die für jeden User erstellt wird, sobald dieser auf eine Seite kommt, welche nicht Stateless ist.
- * Enthält somit alles, was global den User betrifft.
+ * {@link WebSession} die für jeden Account erstellt wird, sobald dieser auf eine Seite kommt, welche nicht Stateless ist.
+ * Enthält somit alles, was global den Account betrifft.
  */
 public class MuSchuSession extends AuthenticatedWebSession {
 
-
     @SpringBean
-    private UserRepositroy USER_REPOSITORY;
-    private User sessionOwner;
+    private AccountRepository ACCOUNT_REPOSITORY;
+    private Account account = null;
+    private Roles roles = new Roles(Rolle.LOGGED_OUT.name());
 
     /**
      * @see Session#get()
@@ -38,9 +39,12 @@ public class MuSchuSession extends AuthenticatedWebSession {
     @Override
     protected boolean authenticate(String user, String password) {
         Injector.get().inject(this);
-        sessionOwner = USER_REPOSITORY.findFirstByUsernameAndPassword(user, password);
-        if (sessionOwner != null) {
+        account = ACCOUNT_REPOSITORY.findFirstByNutzernameAndPasswort(user, password);
+        if (account != null) {
             bind();
+            roles.clear();
+            roles.add(Rolle.LOGGED_IN.name());
+            roles.add(account.getRolle().name());
             return true;
         } else {
             return false;
@@ -52,10 +56,10 @@ public class MuSchuSession extends AuthenticatedWebSession {
      */
     @Override
     public Roles getRoles() {
-        if (sessionOwner == null) {
-            return new Roles("Unregistered");
-        } else {
-            return new Roles("Admin");
-        }
+        return roles;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }

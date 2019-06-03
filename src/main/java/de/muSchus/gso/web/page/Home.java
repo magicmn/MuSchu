@@ -1,7 +1,8 @@
 package de.muSchus.gso.web.page;
 
-import de.muSchus.gso.web.util.page.BasePage;
-import de.muSchus.gso.web.util.panel.feedback.FeedbackModal;
+import de.muSchus.gso.web.bootstrap.page.BasePage;
+import de.muSchus.gso.web.panel.AccountInfo;
+import de.muSchus.gso.web.panel.Login;
 import org.apache.wicket.devutils.stateless.StatelessComponent;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -27,6 +28,7 @@ public class Home extends BasePage {
     }
 
     private void initComponents() {
-        add(new FeedbackModal("feedbackModal"));
+        add(new Login("login"));
+        add(new AccountInfo("accountInfo"));
     }
 }

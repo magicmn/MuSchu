@@ -5,15 +5,18 @@
     <entry key="Required">${label} darf nicht leer sein.</entry>
     <!-- Home -->
     <entry key="Home">Startseite</entry>
-    <!-- LoginPanel -->
-    <entry key="Login">Anmelden</entry>
-    <entry key="Login.username.label">Nutzername</entry>
-    <entry key="Login.username.hint">mmuster</entry>
-    <entry key="Login.username.help">Besteht aus dem ersten Buchstaben des Vornamen und dem Nachnamen.</entry>
-    <entry key="Login.password.label">Passwort</entry>
-    <entry key="Login.password.hint">12345</entry>
+    <!-- Login -->
+    <entry key="Login">Anmeldung</entry>
+    <entry key="Login.nutzername.label">Nutzername</entry>
+    <entry key="Login.nutzername.hint">mmuster</entry>
+    <entry key="Login.nutzername.help">&lt;a tabindex="0" data-toggle="popover" data-trigger="focus" data-content="Ihr Nutzernamen entspricht Ihrem Vornamen und falls ihr Name mehrfach vorhanden ist einem nummerischen Suffix."&gt;Welcher Nutzername?&lt;/a&gt;.</entry>
+    <entry key="Login.passwort.label">Passwort</entry>
+    <entry key="Login.passwort.hint">12345</entry>
     <entry key="Login.submit">Einloggen</entry>
     <entry key="Login.failed">Ungültige Kombination aus Nutzername und Passwort.</entry>
+    <!-- Account -->
+    <entry key="Account.info">Accountinformationen</entry>
+    <entry key="Account.welcome">Hallo ${nutzername}!</entry>
     <entry key="Logout">Abmelden</entry>
     <!-- Validators -->
     <!-- LengthValidator -->

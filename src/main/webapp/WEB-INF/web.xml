@@ -12,9 +12,6 @@
             <param-value>de.muSchus.gso.web.MuSchuApplication</param-value>
         </init-param>
     </filter>
-    <listener>
-        <listener-class>org.h2.server.web.DbStarter</listener-class>
-    </listener>
     <filter-mapping>
         <filter-name>wicket.MuSchu-Web</filter-name>
         <url-pattern>/*</url-pattern>

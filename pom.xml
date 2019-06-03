@@ -28,13 +28,15 @@
     <description>WebApp-Teil des MuSchu-Projekts</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <wicket.version>8.4.0</wicket.version>
         <jetty9.version>9.4.15.v20190215</jetty9.version>
         <junit.version>4.12</junit.version>
         <wtp.version>none</wtp.version>
         <lombok.version>1.18.8</lombok.version>
         <mysql.version>8.0.16</mysql.version>
+        <h2.version>1.4.199</h2.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -42,26 +44,27 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.4.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <dependencies>
-        <!-- Spring -->
+        <!-- Spring Boot & Data -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${javax.validation.version}</version>
         </dependency>
         <!--  WICKET MAIN DEPENDENCIES -->
         <dependency>
@@ -85,17 +88,17 @@
             <artifactId>wicket-spring</artifactId>
             <version>${wicket.version}</version>
         </dependency>
-        <!-- Datenbank -->
+        <!-- MySQL Prod Datenbank -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+        <!-- H2 DEV Datenbank -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-            <version>1.4.199</version>
+            <version>${h2.version}</version>
         </dependency>
         <!--  JUNIT DEPENDENCY FOR TESTING -->
         <dependency>
@@ -104,7 +107,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Jetty -->
+        <!--  JETTY DEPENDENCIES FOR TESTING  -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
@@ -127,38 +130,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <filtering>false</filtering>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <inherited>true</inherited>
@@ -187,7 +158,27 @@
                     <wtpversion>${wtp.version}</wtpversion>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 
     <repositories>
