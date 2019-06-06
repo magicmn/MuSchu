@@ -7,18 +7,14 @@ import lombok.experimental.Accessors;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 @Entity
-@Transactional
 @PrimaryKeyJoinColumn(name = "account", foreignKey = @ForeignKey(name = "fk_lehrer_account"))
 public class Dozent extends Account implements Serializable {
 
@@ -28,11 +24,14 @@ public class Dozent extends Account implements Serializable {
 
     @Column(nullable = false, precision = 2)
     private BigDecimal stundensatz;
+
     @ManyToOne
     @JoinColumn(name = "bankverbindung", foreignKey = @ForeignKey(name = "fk_lehrer_bankverbindung"))
     private Bankverbindung bankverbindung;
+
     @OneToMany(mappedBy = "dozent")
     private List<Kurs> kurse = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "lehrer_kursTyp",

@@ -15,21 +15,15 @@ public class FeedbackPanel extends org.apache.wicket.markup.html.panel.FeedbackP
 
     @Override
     protected String getCSSClass(FeedbackMessage message) {
-        String css;
         switch (message.getLevel()){
             case FeedbackMessage.SUCCESS:
-                css = "alert-success";
-                break;
+                return "alert-success";
             case FeedbackMessage.INFO:
-                css = "alert-info";
-                break;
+                return "alert-info";
             case FeedbackMessage.ERROR:
-                css = "alert-danger";
-                break;
+                return "alert-danger";
             default:
-                css = "alert-dark";
+                return "alert-dark";
         }
-
-        return css;
     }
 }

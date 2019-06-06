@@ -18,6 +18,11 @@
     <entry key="Account.info">Accountinformationen</entry>
     <entry key="Account.welcome">Hallo ${nutzername}!</entry>
     <entry key="Logout">Abmelden</entry>
+    <!-- stunde -->
+    <entry key="Stunde.woche">Stunden diese Woche</entry>
+    <entry key="Stunde.total">Alle Stunden</entry>
+    <entry key="Stunde.inhalt.label">Inhalt der Stunde: </entry>
+    <entry key="Stunde.raum.null">Die Verwaltung hat dieser Stunde noch keinen Raum zugewiesen!</entry>
     <!-- Validators -->
     <!-- LengthValidator -->
     <entry key="LengthValidator.min">${label} muss aus mindestens ${min} Zeichen bestehen.</entry>

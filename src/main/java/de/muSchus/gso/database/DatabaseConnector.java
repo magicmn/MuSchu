@@ -7,14 +7,17 @@ import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@EnableTransactionManagement
 public class DatabaseConnector {
 
     private static ApplicationContext applicationContext;
@@ -93,16 +96,16 @@ public class DatabaseConnector {
         dozenten.add(((Dozent) new Dozent().setNutzername("Eva").setPasswort("passwort")).setBankverbindung(bankverbindungen.get(2)).setStundensatz(28.00).setKursTypen(kursTypen.get(0), kursTypen.get(2)));
         applicationContext.getBean(DozentRepository.class).saveAll(dozenten);
         List<Kurs> kurse = new ArrayList<>();
-        kurse.add(new Kurs().setBezeichnung("A capella am Montag (Einzel/10:00)").setDozent(dozenten.get(3)).setKursTyp(kursTypen.get(0)));
-        kurse.add(new Kurs().setBezeichnung("A capella am Montag (Einzel/10:30)").setDozent(dozenten.get(3).setKursTypen(kursTypen.get(0))));
-        kurse.add(new Kurs().setBezeichnung("A capella am Montag (Einzel/11:30)").setDozent(dozenten.get(3).setKursTypen(kursTypen.get(0))));
-        kurse.add(new Kurs().setBezeichnung("A capella am Montag (Einzel/13:00)").setDozent(dozenten.get(3).setKursTypen(kursTypen.get(0))));
-        kurse.add(new Kurs().setBezeichnung("Klarinette am Montag (Einzel/14:00)").setDozent(dozenten.get(1).setKursTypen(kursTypen.get(9))));
-        kurse.add(new Kurs().setBezeichnung("A capella am Montag (Einzel/16:00)").setDozent(dozenten.get(3)).setKursTyp(kursTypen.get(0)));
-        kurse.add(new Kurs().setBezeichnung("Gitarre am Dienstag (Einzel/11:30)").setDozent(dozenten.get(0)).setKursTyp(kursTypen.get(1)));
-        kurse.add(new Kurs().setBezeichnung("Gitarre am Dienstag (Einzel/12:00)").setDozent(dozenten.get(0)).setKursTyp(kursTypen.get(1)));
-        kurse.add(new Kurs().setBezeichnung("Gekreische am Dienstag (Einzel/13:00)").setDozent(dozenten.get(3)).setKursTyp(kursTypen.get(0)));
-        kurse.add(new Kurs().setBezeichnung("Ruhestörung mit der E-Gitarre am Mittwoch (Einzel/11:30)").setDozent(dozenten.get(0)).setKursTyp(kursTypen.get(1)));
+        kurse.add(new Kurs().setDozent(dozenten.get(3)).setKursTyp(kursTypen.get(0)));
+        kurse.add(new Kurs().setDozent(dozenten.get(3).setKursTypen(kursTypen.get(0))));
+        kurse.add(new Kurs().setDozent(dozenten.get(3).setKursTypen(kursTypen.get(0))));
+        kurse.add(new Kurs().setDozent(dozenten.get(3).setKursTypen(kursTypen.get(0))));
+        kurse.add(new Kurs().setDozent(dozenten.get(1).setKursTypen(kursTypen.get(9))));
+        kurse.add(new Kurs().setDozent(dozenten.get(3)).setKursTyp(kursTypen.get(0)));
+        kurse.add(new Kurs().setDozent(dozenten.get(0)).setKursTyp(kursTypen.get(1)));
+        kurse.add(new Kurs().setDozent(dozenten.get(0)).setKursTyp(kursTypen.get(1)));
+        kurse.add(new Kurs().setDozent(dozenten.get(3)).setKursTyp(kursTypen.get(0)));
+        kurse.add(new Kurs().setDozent(dozenten.get(0)).setKursTyp(kursTypen.get(1)));
         applicationContext.getBean(KursRepository.class).saveAll(kurse);
         List<Schueler> schueler = new ArrayList<>();
         schueler.add(new Schueler().setVorname("Eva").setNachname("Battner").setBankverbindung(bankverbindungen.get(0)));
@@ -150,8 +153,26 @@ public class DatabaseConnector {
         vertraege.add(new Vertrag().setSchueler(schueler.get(12)).setKondition(konditionen.get(1)).setKurs(kurse.get(6)).setStartDatum(Date.valueOf(LocalDate.now().minusDays(22))));
         vertraege.add(new Vertrag().setSchueler(schueler.get(10)).setKondition(konditionen.get(2)).setKurs(kurse.get(7)).setStartDatum(Date.valueOf(LocalDate.now().minusDays(2))));
         vertraege.add(new Vertrag().setSchueler(schueler.get(13)).setKondition(konditionen.get(3)).setKurs(kurse.get(8)).setStartDatum(Date.valueOf(LocalDate.now().minusDays(45))));
+        vertraege.add(new Vertrag().setSchueler(schueler.get(0)).setKondition(konditionen.get(4)).setKurs(kurse.get(8)).setStartDatum(Date.valueOf(LocalDate.now())));
         applicationContext.getBean(VertragRepository.class).saveAll(vertraege);
         List<Stunde> stunden = new ArrayList<>();
-        stunden.add(new Stunde().setDatum(Date.valueOf(LocalDate.of(2019, 6, 3))).setStartzeit(new Time(10, 0, 0)).setKurs(kurse.get(0)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now(), LocalTime.of(11, 30))).setKurs(kurse.get(0)).setRaum(raeume.get(0)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now(), LocalTime.of(10, 0))).setKurs(kurse.get(0)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-7), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-6), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-5), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-4), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-3), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-2), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(-1), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(0), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(3), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(4), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(5), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(6), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        stunden.add(new Stunde().setStart(LocalDateTime.of(LocalDate.now().plusDays(7), LocalTime.of(10, 0))).setKurs(kurse.get(8)));
+        applicationContext.getBean(StundeRepository.class).saveAll(stunden);
     }
 }

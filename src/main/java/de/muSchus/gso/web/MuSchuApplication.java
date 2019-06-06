@@ -8,12 +8,17 @@ import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AnnotationsRoleAuthorizationStrategy;
 import org.apache.wicket.devutils.stateless.StatelessChecker;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.response.filter.AjaxServerAndClientTimeFilter;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 /**
  * WebApplication-Objekt. Definiert die grundlegende Konfiguration der gesamten Anwendung.
  */
 public class MuSchuApplication extends AuthenticatedWebApplication {
+
+    public static MuSchuApplication get() {
+        return (MuSchuApplication) AuthenticatedWebApplication.get();
+    }
 
     @Override
     protected Class<? extends AbstractAuthenticatedWebSession> getWebSessionClass() {
@@ -32,6 +37,8 @@ public class MuSchuApplication extends AuthenticatedWebApplication {
 
     @Override
     public void init() {
+        getRequestCycleSettings().addResponseFilter(new AjaxServerAndClientTimeFilter());
+        getDebugSettings().setAjaxDebugModeEnabled(true);
         mountPackage("page", Home.class);
         getSecuritySettings().setAuthorizationStrategy(new AnnotationsRoleAuthorizationStrategy(this));
         getComponentPostOnBeforeRenderListeners().add(new StatelessChecker());
@@ -39,4 +46,5 @@ public class MuSchuApplication extends AuthenticatedWebApplication {
         getMarkupSettings().setStripWicketTags(true);
         getMarkupSettings().setCompressWhitespace(true);
     }
+
 }

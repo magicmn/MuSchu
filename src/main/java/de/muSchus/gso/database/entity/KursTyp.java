@@ -16,9 +16,12 @@ public class KursTyp implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String bezeichnung;
+
     @ManyToMany(mappedBy = "kursTypen")
     private List<Dozent> dozenten = new ArrayList<>();
+
     @ManyToMany(mappedBy = "kursTypen")
     private List<Raum> raeume = new ArrayList<>();
 }

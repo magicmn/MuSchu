@@ -17,17 +17,17 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  */
 public class MuSchuSession extends AuthenticatedWebSession {
 
-    @SpringBean
-    private AccountRepository ACCOUNT_REPOSITORY;
-    private Account account = null;
-    private Roles roles = new Roles(Rolle.LOGGED_OUT.name());
-
     /**
      * @see Session#get()
      */
     public static MuSchuSession get() {
         return (MuSchuSession) WebSession.get();
     }
+
+    @SpringBean
+    private AccountRepository ACCOUNT_REPOSITORY;
+    private Account account = null;
+    private Roles roles = new Roles(Rolle.LOGGED_OUT.name());
 
     public MuSchuSession(Request request) {
         super(request);

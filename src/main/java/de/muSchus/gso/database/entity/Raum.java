@@ -6,9 +6,7 @@ import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Accessors(chain = true)
@@ -19,6 +17,7 @@ public class Raum implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String bezeichnung;
+
     @ManyToMany
     @JoinTable(
             name = "raum_kursTyp",
@@ -26,6 +25,9 @@ public class Raum implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "kursTyp", foreignKey = @ForeignKey(name = "fk_kursTyp_raum"))
     )
     private List<KursTyp> kursTypen = new ArrayList<>();
+
+    @OneToMany(mappedBy = "raum")
+    private List<Stunde> stunden = new ArrayList<>();
 
     @Tolerate
     public Raum setKursTypen(KursTyp... kursTypen) {

@@ -1,4 +1,4 @@
-package de.muSchus.gso.web.panel;
+package de.muSchus.gso.web.panel.account.info;
 
 import de.muSchus.gso.database.entity.Account;
 import de.muSchus.gso.database.util.Rolle;

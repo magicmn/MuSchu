@@ -1,4 +1,4 @@
-package de.muSchus.gso.web.panel;
+package de.muSchus.gso.web.panel.account.login;
 
 import de.muSchus.gso.database.entity.Account;
 import de.muSchus.gso.database.util.Rolle;
@@ -22,7 +22,7 @@ public class Login extends Panel {
         super(id);
         setOutputMarkupId(true);
         add(new Label("login.info", new ResourceModel("Login")));
-        Form<Account> loginForm = new StatelessForm<Account>("accountForm", new CompoundPropertyModel<>(new Account())) {
+        Form<Account> loginForm = new StatelessForm<>("accountForm", new CompoundPropertyModel<>(new Account())) {
             @Override
             protected void onSubmit() {
                 Account account = getModelObject();

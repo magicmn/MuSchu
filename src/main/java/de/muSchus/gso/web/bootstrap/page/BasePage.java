@@ -3,7 +3,6 @@ package de.muSchus.gso.web.bootstrap.page;
 import de.muSchus.gso.web.bootstrap.panel.Panel;
 import de.muSchus.gso.web.bootstrap.panel.navigation.Navigation;
 import de.muSchus.gso.web.page.Home;
-import de.muSchus.gso.web.page.Login;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
@@ -23,7 +22,7 @@ public abstract class BasePage extends WebPage {
 
     private Panel<Collection<Class<? extends Page>>> navigation;
 
-    public BasePage() {
+    protected BasePage() {
         init();
     }
 
@@ -49,7 +48,6 @@ public abstract class BasePage extends WebPage {
     protected IModel<Collection<Class<? extends Page>>> createNavigationModel() {
         List<Class<? extends Page>> itemList = new ArrayList<>();
         itemList.add(Home.class);
-        itemList.add(Login.class);
         return Model.of(itemList);
     }
 

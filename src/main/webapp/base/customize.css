@@ -2,3 +2,7 @@
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+.panel-container > div {
+    padding-bottom: 15px;
+}
