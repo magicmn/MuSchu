@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+    <div class="card-header">
+        <h5 class="mb-0">
+            <button wicket:id="stundenToggle" class="btn btn-link collapsed" data-toggle="collapse"></button>
+        </h5>
+    </div>
+    <div wicket:id="details" class="collapse">
+        <div class="card-body">
+            <div wicket:id="raumWarning" class="alert alert-warning" role="alert"></div>
+            <form wicket:id="form">
+                <div class="form-group">
+                    <label wicket:for="inhalt">
+                        <wicket:label/>
+                    </label>
+                    <textarea wicket:id="inhalt" class="form-control" rows="3" maxlength="2500"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>
