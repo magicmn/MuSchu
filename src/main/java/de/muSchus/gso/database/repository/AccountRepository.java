@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
     @Query("SELECT u FROM Account u WHERE LOWER(u.nutzername) LIKE lower(?1) AND lower(u.passwort) LIKE lower(?2)")
-    Account findFirstByNutzernameAndPasswort(String nutzername, String passwort);
+    Account findFirstByNutzernameAndPasswort(String nutzername, byte[] passwort);
 
     Account findFirstByNutzername(String nutzername);
 }
