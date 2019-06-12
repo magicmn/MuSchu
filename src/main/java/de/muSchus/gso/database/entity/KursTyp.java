@@ -24,4 +24,7 @@ public class KursTyp implements Serializable {
 
     @ManyToMany(mappedBy = "kursTypen")
     private List<Raum> raeume = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "wunschkurse")
+    private List<Schueler> schueler = new ArrayList<>();
 }

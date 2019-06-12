@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,10 +41,20 @@ public class Schueler implements Serializable {
     @Column(length = 6)
     private String hausnummer;
 
+    private LocalDate geburtsdatum;
+
     @ManyToOne
     @JoinColumn(name = "bankverbindung", foreignKey = @ForeignKey(name = "fk_schueler_bankverbindung"))
     private Bankverbindung bankverbindung;
 
     @OneToMany(mappedBy = "schueler")
     private List<Vertrag> vertraege = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "wunschkurse",
+            joinColumns = @JoinColumn(name = "schueler", foreignKey = @ForeignKey(name = "fk_schueler_kursTyp")),
+            inverseJoinColumns = @JoinColumn(name = "kursTyp", foreignKey = @ForeignKey(name = "fk_kursTyp_schueler"))
+    )
+    private List<KursTyp> wunschkurse = new ArrayList<>();
 }

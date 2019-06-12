@@ -2,6 +2,7 @@ package de.muSchus.gso.web.general.page;
 
 import de.muSchus.gso.web.general.panel.Panel;
 import de.muSchus.gso.web.general.panel.navigation.Navigation;
+import de.muSchus.gso.web.page.Anmeldung;
 import de.muSchus.gso.web.page.Home;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -48,6 +49,7 @@ public abstract class BasePage extends WebPage {
     protected IModel<Collection<Class<? extends Page>>> createNavigationModel() {
         List<Class<? extends Page>> itemList = new ArrayList<>();
         itemList.add(Home.class);
+        itemList.add(Anmeldung.class);
         return Model.of(itemList);
     }
 

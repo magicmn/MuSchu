@@ -3,8 +3,9 @@
 <properties>
     <!-- Wicket Defaults die überschrieben werden -->
     <entry key="Required">${label} darf nicht leer sein.</entry>
-    <!-- Home -->
+    <!-- Pagetitles -->
     <entry key="Home">Startseite</entry>
+    <entry key="Anmeldung">Anmeldung</entry>
     <!-- Login -->
     <entry key="Login">Anmeldung</entry>
     <entry key="Login.nutzername.label">Nutzername</entry>
@@ -18,11 +19,20 @@
     <entry key="Account.info">Accountinformationen</entry>
     <entry key="Account.welcome">Hallo ${nutzername}!</entry>
     <entry key="Logout">Abmelden</entry>
-    <!-- stunde -->
+    <!-- Stunde -->
     <entry key="Stunde.woche">Stunden diese Woche</entry>
     <entry key="Stunde.total">Alle Stunden</entry>
     <entry key="Stunde.inhalt.label">Inhalt der Stunde: </entry>
     <entry key="Stunde.raum.null">Die Stunde hat noch keinen Raum zugewiesen bekommen!</entry>
+    <!-- Schueler -->
+    <entry key="Schueler.nachname">Nachname</entry>
+    <entry key="Schueler.vorname">Vorname</entry>
+    <entry key="Schueler.geburtsdatum">Geburtsdatum</entry>
+    <entry key="Schueler.postleitzahl">Postleitzahl</entry>
+    <entry key="Schueler.ort">Wohnort</entry>
+    <entry key="Schueler.strasse">Straße</entry>
+    <entry key="Schueler.telefonnummer">Telefonnummer</entry>
+    <entry key="Schueler.email">Mail-Adresse</entry>
     <!-- Validators -->
     <!-- LengthValidator -->
     <entry key="LengthValidator.min">${label} muss aus mindestens ${min} Zeichen bestehen.</entry>
