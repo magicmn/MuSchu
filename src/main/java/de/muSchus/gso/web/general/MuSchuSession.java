@@ -39,7 +39,7 @@ public class MuSchuSession extends AuthenticatedWebSession {
     @Override
     protected boolean authenticate(String user, String password) {
         Injector.get().inject(this);
-        account = ACCOUNT_REPOSITORY.findFirstByNutzernameAndPasswort(user, password);
+        account = ACCOUNT_REPOSITORY.findFirstByNutzernameAndPasswort(user, Account.encryptPW(password));
         if (account != null) {
             bind();
             roles.clear();

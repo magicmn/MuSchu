@@ -9,19 +9,24 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.util.convert.ConversionException;
+import org.apache.wicket.util.convert.IConverter;
+
+import java.util.Locale;
 
 public class Login extends Panel {
 
     public Login(String id) {
         super(id);
         setOutputMarkupId(true);
+        Model<String> passwort = new Model<>();
         add(new Label("login.info", new ResourceModel("Login")));
         Form<Account> loginForm = new StatelessForm<>("accountForm", new CompoundPropertyModel<>(new Account())) {
             @Override
             protected void onSubmit() {
-                Account account = getModelObject();
-                if (MuSchuSession.get().signIn(account.getNutzername(), account.getPasswort())) {
+                if (MuSchuSession.get().signIn(getModelObject().getNutzername(), passwort.getObject())) {
                     setResponsePage(getPage().getClass());
                 } else {
                     error(new ResourceModel("Login.failed").getObject());
@@ -36,13 +41,13 @@ public class Login extends Panel {
             }
         }.setRequired(true).add(new LengthValidator().min(4).max(30)).setLabel(new ResourceModel("Login.nutzername.label")));
         loginForm.add(new Label("nutzername.help", new ResourceModel("Login.nutzername.help")).setEscapeModelStrings(false));
-        loginForm.add(new PasswordTextField("passwort") {
+        loginForm.add(new PasswordTextField("passwort", passwort) {
             @Override
             protected void onComponentTag(ComponentTag tag) {
                 super.onComponentTag(tag);
                 tag.put("placeholder", new ResourceModel("Login.passwort.hint").getObject());
             }
-        }.add(new LengthValidator().min(4).max(30)).setLabel(new ResourceModel("Login.passwort.label")));
+        }.setLabel(new ResourceModel("Login.passwort.label")));
         loginForm.add(new Button("submit", new ResourceModel("Login.submit")));
         add(loginForm);
         add(new FeedbackPanel("feedbackModal"));
