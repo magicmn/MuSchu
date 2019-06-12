@@ -1,9 +1,10 @@
 package de.muSchus.gso.web.page.verwaltung;
 
-import de.muSchus.gso.web.bootstrap.page.BasePage;
-import de.muSchus.gso.web.panel.stunde.list.StundenList;
-import de.muSchus.gso.web.panel.stunde.model.StundenWocheLDM;
-import org.apache.wicket.model.ResourceModel;
+
+import de.muSchus.gso.web.component.stunde.list.StundenList;
+import de.muSchus.gso.web.component.stunde.model.StundenWocheLDM;
+import de.muSchus.gso.web.component.stunde.render.StundenListLehrerRenderer;
+import de.muSchus.gso.web.general.page.BasePage;
 
 public class DozentenStunden extends BasePage {
 
@@ -13,7 +14,7 @@ public class DozentenStunden extends BasePage {
 
     public void initComponents(){
 
-        add(new StundenList("dozentenliste", "EEEE",new ResourceModel("Stunde.woche"), new StundenWocheLDM()));
+        add(new StundenList("dozentenliste", new StundenListLehrerRenderer("EEEE")).setModel(new StundenWocheLDM()));
 
 
     }
